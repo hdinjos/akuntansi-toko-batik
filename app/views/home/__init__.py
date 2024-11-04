@@ -13,3 +13,7 @@ def add():
 @server.route("/forms")
 def forms():
   return render_template("form/index.html", title="Forms")
+
+@server.route("/forms/edit")
+def edit():
+  return render_template("form/edit.html", title="Forms")
