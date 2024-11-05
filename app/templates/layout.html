@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | DataTables</title>
+  <title>Toko Batik</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -74,10 +74,10 @@
    
 
           <li class="nav-item menu-open">
-            <a href="/forms" class="nav-link active">
+            <a href="/" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Form
+                Daftar Akun
                 <!-- <i class="right fas fa-angle-left"></i> -->
               </p>
             </a>
@@ -243,6 +243,28 @@
     <!-- /.sidebar -->
   </aside>
 
+  <!-- Modal Delete 
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      Apakah Ingin Menghapus Data?
+      </div>
+      <form id="formDelete" method="POST" action="{{url_for('delete')}}" class="modal-footer">
+        <input hidden id="idDelete" name="id"/>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+        <button type="submit" class="btn btn-primary">Ya</button>
+      </form>
+    </div>
+  </div>
+</div> -->
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -250,12 +272,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Daftar Akun</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">Daftar Akun</li>
             </ol>
           </div>
         </div>
@@ -265,80 +287,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-       
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">General</h3>
-        
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="inputName">Project Name</label>
-                  <input type="text" id="inputName" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="inputDescription">Project Description</label>
-                  <textarea id="inputDescription" class="form-control" rows="4"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="inputStatus">Status</label>
-                  <select id="inputStatus" class="form-control custom-select">
-                    <option selected disabled>Select one</option>
-                    <option>On Hold</option>
-                    <option>Canceled</option>
-                    <option>Success</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="inputClientCompany">Client Company</label>
-                  <input type="text" id="inputClientCompany" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="inputProjectLeader">Project Leader</label>
-                  <input type="text" id="inputProjectLeader" class="form-control">
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <div class="col-md-6">
-            <div class="card card-secondary">
-              <div class="card-header">
-                <h3 class="card-title">Budget</h3>
-        
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="inputEstimatedBudget">Estimated budget</label>
-                  <input type="number" id="inputEstimatedBudget" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="inputSpentBudget">Total amount spent</label>
-                  <input type="number" id="inputSpentBudget" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label for="inputEstimatedDuration">Estimated project duration</label>
-                  <input type="number" id="inputEstimatedDuration" class="form-control">
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-        </div>
+        {% block content %}{% endblock %}
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
@@ -385,6 +334,15 @@
 <!-- Page specific script -->
 <script>
   $(function () {
+    $(document).on("click", "#btnDelete", function () {
+     var myId = $(this).data('id');
+    console.log(myId)
+     $("#idDelete").val( myId );
+     
+     // As pointed out in comments, 
+     // it is unnecessary to have to manually call the modal.
+     // $('#addBookDialog').modal('show');
+    });
     
     $('#example2').DataTable({
       "paging": true,
