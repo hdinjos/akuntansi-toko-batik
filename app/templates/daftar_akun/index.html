@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | DataTables</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href={{url_for('static', filename='plugins/fontawesome-free/css/all.min.css')}}>
+  <!-- DataTables -->
+  <link rel="stylesheet" href={{url_for('static', filename='plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}>
+  <link rel="stylesheet" href={{url_for('static', filename='plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}>
+  <link rel="stylesheet" href={{url_for('static', filename='plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}>
+  <!-- Theme style -->
+  <link rel="stylesheet" href={{url_for('static', filename='assets/css/adminlte.min.css')}}>
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+      <!-- Notifications Dropdown Menu -->
+     
+      <!-- <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li> -->
+      <!-- <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li> -->
+      <li class="nav-item dropdown d-flex align-items-center">
+        <div class="btn nav-link" data-toggle="dropdown">Welcome..., Andi</div>
+
+        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-file mr-2"></i> Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-file mr-2"></i> Logout
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+   
+
+          <li class="nav-item menu-open">
+            <a href="/" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Daftar Akun
+                <!-- <i class="right fas fa-angle-left"></i> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../widgets.html" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Widgets
+                <span class="right badge badge-danger">New</span>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Layout Options
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">6</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../layout/top-nav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Top Navigation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../layout/top-nav-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Top Navigation + Sidebar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../layout/boxed.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Boxed</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../layout/fixed-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Fixed Sidebar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../layout/fixed-sidebar-custom.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Fixed Sidebar <small>+ Custom Area</small></p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../layout/fixed-topnav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Fixed Navbar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../layout/fixed-footer.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Fixed Footer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../layout/collapsed-sidebar.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Collapsed Sidebar</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          
+          <li class="nav-header">MULTI LEVEL EXAMPLE</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-circle nav-icon"></i>
+              <p>Level 1</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-circle"></i>
+              <p>
+                Level 1
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Level 2</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>
+                    Level 2
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Level 3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Level 2</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-circle nav-icon"></i>
+              <p>Level 1</p>
+            </a>
+          </li>
+          <li class="nav-header">LABELS</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Important</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Warning</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-info"></i>
+              <p>Informational</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Modal Delete--> 
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      Apakah Ingin Menghapus Data?
+      </div>
+      <form id="formDelete" method="POST" action="{{url_for('delete')}}" class="modal-footer">
+        <input hidden id="idDelete" name="id"/>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+        <button type="submit" class="btn btn-primary">Ya</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Daftar Akun</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Daftar Akun</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-end">
+                 <a href="/daftar-akun/create" class="btn btn-primary">Tambah</a>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Kode</th>
+                    <th>Nama</th>
+                    <th>Platform(s)</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    {% for data in daftar_akuns %}
+                    <tr>
+                      <td>{{data.code}}</td>
+                      <td>{{data.name}}
+                      </td>
+                      <td>
+                        <div class="d-flex justify-content-start">
+                          <a href="/daftar-akun/edit/{{data.id}}" class="btn btn-primary mr-3">Edit</a>
+                          <a id="btnDelete" href="#" data-id="{{data.id}}" data-toggle="modal" data-target="#staticBackdrop" class="btn btn-danger">Hapus</a>
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      
+    </div>
+    <strong>Copyright &copy; 2024 Sing Nggarap .
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src={{url_for('static', filename='plugins/jquery/jquery.min.js')}}></script>
+<!-- Bootstrap 4 -->
+<script src={{url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}></script>
+<!-- DataTables  & Plugins -->
+<script src={{url_for('static', filename='plugins/datatables/jquery.dataTables.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/datatables-responsive/js/dataTables.responsive.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/datatables-buttons/js/dataTables.buttons.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/jszip/jszip.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/pdfmake/pdfmake.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/pdfmake/vfs_fonts.js')}}></script>
+<script src={{url_for('static', filename='plugins/datatables-buttons/js/buttons.html5.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/datatables-buttons/js/buttons.print.min.js')}}></script>
+<script src={{url_for('static', filename='plugins/datatables-buttons/js/buttons.colVis.min.js')}}></script>
+<!-- AdminLTE App -->
+<script src={{url_for('static', filename='assets/js/adminlte.min.js')}}></script>
+<!-- AdminLTE for demo purposes -->
+<script src={{url_for('static', filename='assets/js/demo.js')}}></script>
+<!-- Page specific script -->
+<script>
+  $(function () {
+    $(document).on("click", "#btnDelete", function () {
+     var myId = $(this).data('id');
+    console.log(myId)
+     $("#idDelete").val( myId );
+     
+     // As pointed out in comments, 
+     // it is unnecessary to have to manually call the modal.
+     // $('#addBookDialog').modal('show');
+    });
+    
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+</body>
+</html>
