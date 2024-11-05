@@ -1,6 +1,10 @@
 from app import server,db
 from flask import render_template, request, redirect, url_for
 from app.models.DaftarAkun import DaftarAkun
+import random
+import string
+
+
 
 @server.route("/")
 def index():
@@ -10,7 +14,8 @@ def index():
 @server.route("/daftar-akun/create", methods=['POST', 'GET'])
 def create():
     if request.method == 'POST':
-        code = request.form['code']
+        random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+        code = random_string
         name = request.form['name']
         
         request_data = DaftarAkun(code=code, name=name)

@@ -281,7 +281,8 @@
               <form method="POST" action="{{url_for("edit", id=data.id)}}" class="card-body">
                 <div class="form-group">
                   <label for="inputName">Kode Akun</label>
-                  <input type="text" id="code" name="code" value="{{data.code}}" class="form-control">
+                  <input disabled value="{{data.code}}" class="form-control">
+                  <input hidden type="text" id="code" name="code" value="{{data.code}}" class="form-control">
                 </div>
                 <div class="form-group">
                   <label for="inputName">Nama Akun</label>
