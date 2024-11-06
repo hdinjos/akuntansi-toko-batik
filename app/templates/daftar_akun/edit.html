@@ -34,14 +34,14 @@
         </div>
         <div class="form-group">
           <label for="inputName">Nama Akun</label>
-          <input type="text" id="name" name="name" value="{{data.name}}" class="form-control">
+          <input required type="text" id="name" name="name" value="{{data.name}}" class="form-control">
         </div>
         <div class="form-group">
           <label>Kategori</label>
-          <select name="category_id" class="form-control">
-            {% for data in kategoris %}
+          <select required name="category_id" class="form-control">
+            {% for k in kategoris %}
 
-            <option selected="{{data.category_id}}" value="{{data.id}}">{{data.name}}</option>
+            <option {% if k.id == data.category_id %} selected="selected" {% endif %}  value="{{k.id}}">{{k.name}}</option>
             {% endfor %}
             
 

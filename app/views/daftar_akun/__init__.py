@@ -5,10 +5,11 @@ import random
 import string
 
 
-
 @server.route("/")
 def index():
-    daftar_akuns = DaftarAkun.query.order_by(DaftarAkun.id.desc())
+    # daftar_akuns = DaftarAkun.query.all()
+    daftar_akuns = db.session.query( DaftarAkun.id, DaftarAkun.code, DaftarAkun.name, KategoriDaftarAkun.name.label('category_name')).filter(DaftarAkun.category_id == KategoriDaftarAkun.id).all()
+
     return render_template("daftar_akun/index.html", title="Daftar Akun", daftar_akuns=daftar_akuns)
 
 @server.route("/daftar-akun/create", methods=['POST', 'GET'])
