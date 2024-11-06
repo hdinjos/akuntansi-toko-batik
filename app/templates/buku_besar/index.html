@@ -59,41 +59,33 @@
       </div> -->
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="example2" class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>Kode</th>
-              <th>Nama</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for data in daftar_akuns %}
-            <tr>
-              <td>{{data.code}}</td>
-              <td>{{data.name}}</td>
-              <td>
-                <div class="d-flex justify-content-start">
-                  <a
-                    href="/daftar-akun/edit/{{data.id}}"
-                    class="btn btn-primary mr-3"
-                    >Edit</a
-                  >
-                  <a
-                    id="btnDelete"
-                    href="#"
-                    data-id="{{data.id}}"
-                    data-toggle="modal"
-                    data-target="#staticBackdrop"
-                    class="btn btn-danger"
-                    >Hapus</a
-                  >
-                </div>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+        <div>
+          {% for data in buku_besar %}
+          <h5>{{data['daftar_akun_name']}}</h5>
+          <table class="table table-hover mb-4">
+            <tbody>
+              <tr>
+                <th style="width: 20%">Tanggal</th>
+                <th style="width: 20%">Keterangan</th>
+                <th style="width: 20%">Debit</th>
+                <th style="width: 20%">Kredit</th>
+                <th style="width: 20%">Saldo</th>
+              </tr>
+              {% for a in data['daftar'] %}
+              <tr>
+                <td>{{a.date}}</td>
+                <td>{{a.note}}</td>
+                <td>{{a.debit| int}}</td>
+                <td>{{a.credit|int}}</td>
+                <td>
+                  <span class="label label-success">{{ a.balance |int}}</span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endfor %}
+        </div>
       </div>
       <!-- /.card-body -->
     </div>
