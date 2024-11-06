@@ -1,6 +1,6 @@
 from app import server,db
 from flask import render_template, request, redirect, url_for
-from app.models.DaftarAkun import DaftarAkun
+from app.models.DaftarAkun import DaftarAkun, KategoriDaftarAkun
 import random
 import string
 
@@ -17,23 +17,28 @@ def create():
         random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
         code = random_string
         name = request.form['name']
+        category_id = request.form['category_id']
         
-        request_data = DaftarAkun(code=code, name=name)
+        request_data = DaftarAkun(code=code, name=name, category_id=category_id)
         db.session.add(request_data)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template("daftar_akun/add.html", title="Daftar Akun")
+    
+    kategoris = KategoriDaftarAkun.query.order_by(KategoriDaftarAkun.id.desc())
+    return render_template("daftar_akun/add.html", title="Daftar Akun", kategoris=kategoris)
 
 @server.route("/daftar-akun/edit/<id>", methods=['POST', 'GET'])
 def edit(id):
     if  request.method == 'GET':
         data = DaftarAkun.query.get(int(id))
-        return render_template("daftar_akun/edit.html", title="Daftar Akun", data=data)
+        kategoris = KategoriDaftarAkun.query.order_by(KategoriDaftarAkun.id.desc())
+        return render_template("daftar_akun/edit.html", title="Daftar Akun", data=data, kategoris=kategoris)
     if request.method == 'POST':
         code = request.form['code']
         name = request.form['name']
+        category_id = int(request.form['category_id'])
         
-        db.session.query(DaftarAkun).filter(DaftarAkun.id == int(id)).update({"code": code, "name": name})
+        db.session.query(DaftarAkun).filter(DaftarAkun.id == int(id)).update({"code": code, "name": name, "category_id":category_id})
         db.session.commit()
         return redirect(url_for('index'))
     
