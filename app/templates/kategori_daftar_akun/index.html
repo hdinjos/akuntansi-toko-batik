@@ -1,0 +1,126 @@
+{% extends "layout.html" %} {% block content %}
+
+<!-- Modal Delete-->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-backdrop="static"
+  data-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">Apakah Ingin Menghapus Data?</div>
+      <form
+        id="formDelete"
+        method="POST"
+        action="{{url_for('delete_cat')}}"
+        class="modal-footer"
+      >
+        <input hidden id="idDelete" name="id" />
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Tidak
+        </button>
+        <button type="submit" class="btn btn-primary">Ya</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Kategori Daftar Akun</h1>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-end">
+        <a href="/daftar-akun-cat/create" class="btn btn-primary">Tambah</a>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="example2" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in daftar_akuns %}
+            <tr>
+              <td>{{data.name}}</td>
+              <td>
+                <div class="d-flex justify-content-start">
+                  <a
+                    href="/daftar-akun-cat/edit/{{data.id}}"
+                    class="btn btn-primary mr-3"
+                    >Edit</a
+                  >
+                  <a
+                    id="btnDelete"
+                    href="#"
+                    data-id="{{data.id}}"
+                    data-toggle="modal"
+                    data-target="#staticBackdrop"
+                    class="btn btn-danger"
+                    >Hapus</a
+                  >
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+</div>
+
+{% endblock %} {% block script %}
+<script>
+  $(function () {
+    $(document).on("click", "#btnDelete", function () {
+      var myId = $(this).data("id");
+      $("#idDelete").val(myId);
+
+      // As pointed out in comments,
+      // it is unnecessary to have to manually call the modal.
+      // $('#addBookDialog').modal('show');
+    });
+
+    $("#example2").DataTable({
+      paging: true,
+      lengthChange: false,
+      searching: false,
+      ordering: true,
+      info: true,
+      autoWidth: false,
+      responsive: true,
+    });
+  });
+</script>
+{% endblock %}

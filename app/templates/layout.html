@@ -74,9 +74,17 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
    
-
-          <li class="nav-item menu-open">
-            <a href="/" class="nav-link active">
+          <li class="nav-item">
+            <a href="/daftar-akun-cat" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Kategori Daftar Akun
+                <!-- <i class="right fas fa-angle-left"></i> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Daftar Akun
@@ -156,26 +164,13 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Daftar Akun</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Daftar Akun</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+    
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->

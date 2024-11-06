@@ -11,4 +11,4 @@ from app.models import db
 migrate = Migrate(server, db)
 
 # from app.views import Home, Load_Data, Data_Scrapped, Preprocessing, Calculate
-from app.views import daftar_akun, jurnal_umum, buku_besar, neraca_lajur, laba_rugi, neraca
+from app.views import daftar_akun, jurnal_umum, buku_besar, neraca_lajur, laba_rugi, neraca, kategori_daftar_akun
