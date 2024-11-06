@@ -1,5 +1,16 @@
 {% extends "layout.html" %} {% block content %}
 
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Jurnal Umum</h1>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
 <!-- Modal Delete-->
 <div
   class="modal fade"
@@ -27,7 +38,7 @@
       <form
         id="formDelete"
         method="POST"
-        action="{{url_for('delete')}}"
+        action="{{url_for('delete_jurnal')}}"
         class="modal-footer"
       >
         <input hidden id="idDelete" name="id" />
@@ -44,27 +55,33 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header d-flex justify-content-end">
-        <a href="/daftar-akun/create" class="btn btn-primary">Tambah</a>
+        <a href="/jurnal-umum/create" class="btn btn-primary">Tambah</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
         <table id="example2" class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th>Kode</th>
-              <th>Nama</th>
+              <th>Tanggal</th>
+              <th>Daftar Akun</th>
+              <th>Keterangan</th>
+              <th>Debit</th>
+              <th>Kredit</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
             {% for data in daftar_akuns %}
             <tr>
-              <td>{{data.code}}</td>
-              <td>{{data.name}}</td>
+              <td>{{data.date}}</td>
+              <td>{{data.daftar_akun_name}}</td>
+              <td>{{data.note}}</td>
+              <td>{{data.debit |int}}</td>
+              <td>{{data.credit|int}}</td>
               <td>
                 <div class="d-flex justify-content-start">
                   <a
-                    href="/daftar-akun/edit/{{data.id}}"
+                    href="/jurnal-umum/edit/{{data.id}}"
                     class="btn btn-primary mr-3"
                     >Edit</a
                   >

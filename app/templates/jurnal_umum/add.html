@@ -1,5 +1,17 @@
 {% extends "layout.html" %}
 {% block content %} 
+
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Jurnal Umum</h1>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
 <div class="row mr-5 ml-5 pr-5 pl-5">
   <div class="col-md-12">
     <div class="card card-primary">
@@ -12,14 +24,34 @@
           </button>
         </div>
       </div>
-      <form method="POST" action={{url_for('create')}} class="card-body">
-        <!-- <div class="form-group">
-          <label for="inputName">Kode Akun</label>
-          <input type="text" id="code" name="code" class="form-control">
-        </div> -->
+      <form method="POST" action={{url_for('create_jurnal')}} class="card-body">
+   
         <div class="form-group">
-          <label for="inputName">Nama Akun</label>
-          <input type="text" id="name" name="name" class="form-control">
+          <label for="inputName">Tanggal</label>
+          <input required type="date" id="date" name="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Daftar Akun</label>
+          <select required name="daftar_akun_id" class="form-control">
+            {% for data in daftar_akuns %}
+
+            <option value="{{data.id}}">{{data.name}}</option>
+            {% endfor %}
+            
+
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="inputName">Keterangan</label>
+          <input required type="text" id="note" name="note" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="inputName">Debit</label>
+          <input required type="number" id="debit" name="debit" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="inputName">Kredit</label>
+          <input required type="number" id="credit" name="credit" class="form-control">
         </div>
         <div class="d-flex justify-content-end">
           <button class="btn btn-primary">Submit</button>

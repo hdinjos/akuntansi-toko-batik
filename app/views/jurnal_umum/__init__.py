@@ -1,6 +1,7 @@
 from app import server,db
 from flask import render_template, request, redirect, url_for
 from app.models.DaftarAkun import DaftarAkun
+from app.models.JurnalUmum import JurnalUmum
 import random
 import string
 
@@ -8,42 +9,53 @@ import string
 
 @server.route("/jurnal-umum")
 def index_jurnal():
-    daftar_akuns = DaftarAkun.query.order_by(DaftarAkun.id.desc())
+    # daftar_akuns = DaftarAkun.query.order_by(DaftarAkun.id.desc())
+    daftar_akuns = db.session.query( JurnalUmum.id, JurnalUmum.date, JurnalUmum.date,JurnalUmum.note,JurnalUmum.debit,JurnalUmum.credit, DaftarAkun.name.label('daftar_akun_name')).filter(JurnalUmum.daftar_akun_id == DaftarAkun.id).all()
     return render_template("jurnal_umum/index.html", title="Daftar Akun", daftar_akuns=daftar_akuns)
 
 @server.route("/jurnal-umum/create", methods=['POST', 'GET'])
 def create_jurnal():
     if request.method == 'POST':
-        random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
-        code = random_string
-        name = request.form['name']
+       
+        date = request.form['date']
+        daftar_akun_id = request.form['daftar_akun_id']
+        note = request.form['note']
+        debit = request.form['debit']
+        credit = request.form['credit']
         
-        request_data = DaftarAkun(code=code, name=name)
+        request_data = JurnalUmum(date=date, daftar_akun_id = daftar_akun_id, note=note, debit=debit, credit=credit)
         db.session.add(request_data)
         db.session.commit()
-        return redirect(url_for('index'))
-    return render_template("jurnal_umum/add.html", title="Daftar Akun")
+        return redirect(url_for('index_jurnal'))
+    daftar_akuns = DaftarAkun.query.all()
+    return render_template("jurnal_umum/add.html", title="Daftar Akun", daftar_akuns=daftar_akuns)
 
 @server.route("/jurnal-umum/edit/<id>", methods=['POST', 'GET'])
 def edit_jurnal(id):
     if  request.method == 'GET':
-        data = DaftarAkun.query.get(int(id))
-        return render_template("jurnal_umum/edit.html", title="Daftar Akun", data=data)
+        data = JurnalUmum.query.get(int(id))
+        daftar_akuns = DaftarAkun.query.all()
+        return render_template("jurnal_umum/edit.html", title="Daftar Akun", data=data, daftar_akuns=daftar_akuns)
     if request.method == 'POST':
-        code = request.form['code']
-        name = request.form['name']
+        date = request.form['date']
+        daftar_akun_id = request.form['daftar_akun_id']
+        note = request.form['note']
+        debit = request.form['debit']
+        credit = request.form['credit']
         
-        db.session.query(DaftarAkun).filter(DaftarAkun.id == int(id)).update({"code": code, "name": name})
+        db.session.query(JurnalUmum).filter(JurnalUmum.id == int(id)).update({
+            "date": date, "daftar_akun_id":daftar_akun_id, "note": note, "debit": debit, "credit": credit
+        })
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('index_jurnal'))
     
 @server.route("/jurnal-umum/delete", methods=['POST'])
 def delete_jurnal():
     if  request.method == 'POST':
         id = request.form['id']
         if (id):
-            DaftarAkun.query.filter_by(id=int(id)).delete()
+            JurnalUmum.query.filter_by(id=int(id)).delete()
             db.session.commit()
-            return redirect(url_for('index'))
+            return redirect(url_for('index_jurnal'))
 
 
