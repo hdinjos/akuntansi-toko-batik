@@ -1,5 +1,16 @@
 {% extends "layout.html" %} {% block content %}
 
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Neraca Lajur</h1>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
 <!-- Modal Delete-->
 <div
   class="modal fade"
@@ -44,11 +55,45 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header d-flex justify-content-end">
-        <a href="/daftar-akun/create" class="btn btn-primary">Tambah</a>
+        <a href="/neraca-lajur/create" class="btn btn-primary">Tambah</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="example2" class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover mb-4">
+          <thead>
+            <tr>
+              <th colspan="2" rowspan="2">Akun</th>
+              <th colspan="2">Neraca Saldo</th>
+              <th colspan="2">Laba/Rugi</th>
+              <th colspan="2">Neraca</th>
+              <th colspan="2" rowspan="2">Aksi</th>
+            </tr>
+            <tr>
+              <th>Debit</th>
+              <th>Kredit</th>
+              <th>Debit</th>
+              <th>Kredit</th>
+              <th>Debit</th>
+              <th>Kredit</th>
+            </tr>
+          </tbody>
+          <tbody>
+            {% for a in daftar_akuns %}
+            
+            <tr>
+              <td colspan="2">{{a.daftar_akun_name}}</td>
+              <td>{{a.debit| int}}</td>
+              <td>{{a.credit|int}}</td>
+              <td> {% if a.jenis == 'lb' %} {{a.debit| int}} {% endif %}</td>
+              <td>{{a.credit|int}}</td>
+              <td>{{a.debit| int}}</td>
+              <td>{{a.credit|int}}</td>
+              <td>Hapus</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!-- <table id="example2" class="table table-bordered table-hover">
           <thead>
             <tr>
               <th>Kode</th>
@@ -82,7 +127,7 @@
             </tr>
             {% endfor %}
           </tbody>
-        </table>
+        </table> -->
       </div>
       <!-- /.card-body -->
     </div>

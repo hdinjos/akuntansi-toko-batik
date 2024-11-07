@@ -1,6 +1,8 @@
 from app.models import db
 from app.models.JurnalUmum import JurnalUmum
+from app.models.NeracaLajur import NeracaLajur
 # from app.models import Scrapped
+
 
 class KategoriDaftarAkun(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -13,4 +15,5 @@ class DaftarAkun(db.Model):
   name= db.Column(db.String(200), unique=False, nullable=False)
   category_id=db.Column(db.Integer, db.ForeignKey('kategori_daftar_akun.id', ondelete='CASCADE'))
   jurnal_umum= db.relationship('JurnalUmum', backref='daftar_akun', passive_deletes=True)
+  naraca_lajur= db.relationship('NeracaLajur', backref='daftar_akun', passive_deletes=True)
   
