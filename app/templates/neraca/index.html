@@ -1,5 +1,16 @@
 {% extends "layout.html" %} {% block content %}
 
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Neraca</h1>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
 <!-- Modal Delete-->
 <div
   class="modal fade"
@@ -43,25 +54,27 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-header d-flex justify-content-end">
+      <!-- <div class="card-header d-flex justify-content-end">
         <a href="/daftar-akun/create" class="btn btn-primary">Tambah</a>
-      </div>
+      </div> -->
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="example2" class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover">
           <thead>
             <tr>
-              <th>Kode</th>
-              <th>Nama</th>
-              <th>Aksi</th>
+              <th>Akun</th>
+              <th>Debit</th>
+              <th>Kredit</th>
+              <!-- <th>Balance</th> -->
             </tr>
           </thead>
           <tbody>
             {% for data in daftar_akuns %}
             <tr>
-              <td>{{data.code}}</td>
-              <td>{{data.name}}</td>
-              <td>
+              <td>{{data.daftar_akun_name}}</td>
+              <td>{{data.debit}}</td>
+              <td>{{data.credit}}</td>
+              <!-- <td>
                 <div class="d-flex justify-content-start">
                   <a
                     href="/daftar-akun/edit/{{data.id}}"
@@ -78,7 +91,7 @@
                     >Hapus</a
                   >
                 </div>
-              </td>
+              </td> -->
             </tr>
             {% endfor %}
           </tbody>
