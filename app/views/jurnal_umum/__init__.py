@@ -2,6 +2,8 @@ from app import server,db
 from flask import render_template, request, redirect, url_for
 from app.models.DaftarAkun import DaftarAkun
 from app.models.JurnalUmum import JurnalUmum
+from app.models.NeracaLajur import NeracaLajur
+from sqlalchemy.sql import func
 import random
 import string
 
@@ -22,9 +24,25 @@ def create_jurnal():
         note = request.form['note']
         debit = request.form['debit']
         credit = request.form['credit']
+        deviation = float(debit)-float(credit)
         
-        request_data = JurnalUmum(date=date, daftar_akun_id = daftar_akun_id, note=note, debit=debit, credit=credit)
+        request_data = JurnalUmum(date=date, daftar_akun_id = daftar_akun_id, note=note, debit=debit, credit=credit, deviation=deviation)
+        
         db.session.add(request_data)
+        db.session.commit()
+        total = db.session.query(func.sum(JurnalUmum.deviation).label("total")).filter(JurnalUmum.daftar_akun_id == daftar_akun_id).scalar()
+        
+        d =0
+        c=0
+        if total < 0:
+            c = abs(total)
+        else:
+            d = total
+        
+        db.session.query(NeracaLajur).filter(NeracaLajur.daftar_akun_id == int(daftar_akun_id)).update({
+            'debit': d,
+            'credit': c
+        })
         db.session.commit()
         return redirect(url_for('index_jurnal'))
     daftar_akuns = DaftarAkun.query.all()
@@ -42,9 +60,25 @@ def edit_jurnal(id):
         note = request.form['note']
         debit = request.form['debit']
         credit = request.form['credit']
+        deviation = float(debit)-float(credit)
         
         db.session.query(JurnalUmum).filter(JurnalUmum.id == int(id)).update({
-            "date": date, "daftar_akun_id":daftar_akun_id, "note": note, "debit": debit, "credit": credit
+            "date": date, "daftar_akun_id":daftar_akun_id, "note": note, "debit": debit, "credit": credit, "deviation": deviation
+        })
+        db.session.commit()
+        
+        total = db.session.query(func.sum(JurnalUmum.deviation).label("total")).filter(JurnalUmum.daftar_akun_id == daftar_akun_id).scalar()
+        
+        d =0
+        c=0
+        if total < 0:
+            c = abs(total)
+        else:
+            d = total
+        
+        db.session.query(NeracaLajur).filter(NeracaLajur.daftar_akun_id == int(daftar_akun_id)).update({
+            'debit': d,
+            'credit': c
         })
         db.session.commit()
         return redirect(url_for('index_jurnal'))
@@ -54,7 +88,27 @@ def delete_jurnal():
     if  request.method == 'POST':
         id = request.form['id']
         if (id):
+            find_id_daftar_akun = db.session.query(JurnalUmum.daftar_akun_id).filter_by(id=int(id)).scalar()
+            print("PPPPP££££££")
+            print(find_id_daftar_akun)
+            
             JurnalUmum.query.filter_by(id=int(id)).delete()
+            db.session.commit()
+            
+            total = db.session.query(func.sum(JurnalUmum.deviation).label("total")).filter(JurnalUmum.daftar_akun_id == int(find_id_daftar_akun)).scalar()
+            print("PPPPP&&&&&^^&*&(*)")
+            print(total)
+            d =0
+            c=0
+            if total < 0:
+                c = abs(total)
+            else:
+                d = total
+            
+            db.session.query(NeracaLajur).filter(NeracaLajur.daftar_akun_id == int(find_id_daftar_akun)).update({
+                'debit': d,
+                'credit': c
+            })
             db.session.commit()
             return redirect(url_for('index_jurnal'))
 

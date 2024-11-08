@@ -2,6 +2,8 @@ from app import server,db
 from flask import render_template, request, redirect, url_for
 from app.models.DaftarAkun import DaftarAkun
 from app.models.NeracaLajur import NeracaLajur
+from app.models.JurnalUmum import JurnalUmum
+from sqlalchemy.sql import func
 import random
 import string
 
@@ -18,11 +20,25 @@ def index_lajur():
 def create_lajur():
     if request.method == 'POST':
         daftar_akun_id = request.form['daftar_akun_id']
-        jenis = request.form['jenis']
-        debit = request.form['debit']
-        credit = request.form['credit']
+        # jenis = request.form['jenis']
+        # debit = request.form['debit']
+        # credit = request.form['credit']
+        total = db.session.query(func.sum(JurnalUmum.deviation).label("total")).filter(JurnalUmum.daftar_akun_id == daftar_akun_id).scalar()
+        print("$$$$$$$$$$$$")
+        print(total)
+        debit =0
+        credit=0
+        if total < 0:
+            credit = abs(total)
+        else:
+            debit = total
+            
         
-        request_data = NeracaLajur( daftar_akun_id = daftar_akun_id, jenis=jenis, debit=debit, credit=credit)
+        # for j in findJurnal:
+            # print(j)
+        
+        
+        request_data = NeracaLajur( daftar_akun_id = daftar_akun_id, debit=debit, credit=credit)
         db.session.add(request_data)
         db.session.commit()
         return redirect(url_for('index_lajur'))
@@ -37,13 +53,11 @@ def edit_lajur(id):
         return render_template("neraca_lajur/edit.html", title="Daftar Akun", data=data, daftar_akuns=daftar_akuns)
     if request.method == 'POST':
         daftar_akun_id = request.form['daftar_akun_id']
-        jenis = request.form['jenis']
         debit = request.form['debit']
         credit = request.form['credit']
         
         db.session.query(NeracaLajur).filter(NeracaLajur.id == int(id)).update({
             'daftar_akun_id': daftar_akun_id,
-            'jenis' : jenis,
             'debit': debit,
             'credit': credit
         })

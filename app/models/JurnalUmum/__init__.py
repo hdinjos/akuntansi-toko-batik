@@ -8,4 +8,5 @@ class JurnalUmum(db.Model):
   note= db.Column(db.Text, unique=False, nullable=False)
   debit= db.Column(db.Float, unique=False, nullable=False, default=0)
   credit= db.Column(db.Float, unique=False, nullable=False, default=0)
+  deviation= db.Column(db.Float, unique=False, nullable=False, default=0)
   daftar_akun_id=db.Column(db.Integer, db.ForeignKey('daftar_akun.id', ondelete='CASCADE'))

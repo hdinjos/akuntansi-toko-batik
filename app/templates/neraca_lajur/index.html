@@ -64,17 +64,17 @@
             <tr>
               <th colspan="2" rowspan="2">Akun</th>
               <th colspan="2">Neraca Saldo</th>
-              <th colspan="2">Laba/Rugi</th>
-              <th colspan="2">Neraca</th>
-              <th colspan="2" rowspan="2">Aksi</th>
+              <!-- <th colspan="2">Laba/Rugi</th>
+              <th colspan="2">Neraca</th> -->
+              <!-- <th colspan="2" rowspan="2">Aksi</th> -->
             </tr>
             <tr>
               <th>Debit</th>
               <th>Kredit</th>
-              <th>Debit</th>
+              <!-- <th>Debit</th>
               <th>Kredit</th>
               <th>Debit</th>
-              <th>Kredit</th>
+              <th>Kredit</th> -->
             </tr>
           </tbody>
           <tbody>
@@ -83,11 +83,11 @@
               <td colspan="2">{{a.daftar_akun_name}}</td>
               <td>{{a.debit| int}}</td>
               <td>{{a.credit|int}}</td>
-              <td> {% if a.jenis == 'lb' %} {{a.debit| int}} {% else %} 0 {% endif %}</td>
+              <!-- <td> {% if a.jenis == 'lb' %} {{a.debit| int}} {% else %} 0 {% endif %}</td>
               <td>{% if a.jenis == 'lb' %} {{a.credit| int}} {% else %} 0 {% endif %}</td>
               <td>{% if a.jenis == 'nrc' %} {{a.debit| int}} {% else %} 0 {% endif %}</td>
-              <td>{% if a.jenis == 'nrc' %} {{a.credit| int}} {% else %} 0 {% endif %}</td>
-              <td>
+              <td>{% if a.jenis == 'nrc' %} {{a.credit| int}} {% else %} 0 {% endif %}</td> -->
+              <!-- <td>
                 <div class="d-flex justify-content-start">
                   <a
                     href="/neraca-lajur/edit/{{a.id}}"
@@ -104,7 +104,7 @@
                     >Hapus</a
                   >
                 </div>
-              </td>
+              </td> -->
             </tr>
             {% endfor %}
           </tbody>
