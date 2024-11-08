@@ -1,0 +1,28 @@
+Aturan settingan databasenya:
+1. setting koneksi database di:
+
+folder: app  => file:  __init__.py
+
+ke baris 7 dan edit : 
+server.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@127.0.0.1:8889/toko_batik"
+keterangan:
+
+"mysql+pymysql://root:root@127.0.0.1:8889/toko_batik"
+"databasetype+driver://USERNAME:PASSWORD@HOST:PORT/DATABASENAME"
+
+root:root => root sebagai username, root selanjutnya sebagai password
+127.0.0.1 => host komputer
+8889 => port database
+toko_batik => nama database
+
+SESUAIKAN DENGAN SETTINGAN DATABASE DI LOCAL KOMPUTER MASING-MASING
+
+2. Import file sql menggunakan sql client(misal pakai phpmyadmin atau semacamnya
+ - file sql toko_batik.sql yang ada di folder dump_database
+
+Cara menjalankan Project:
+
+1. Usahakan buat env di dengan python (cari di internet banyak). kalau belum bisa gpp
+2. Usahakan menggunakan versi python yang terbaru sekarang, dan menggunakan paket install pip/pip3 (biasanya sudah terinstall)
+3. Install paket dengan cara, jalankan perintah di root project, pip install -r requirements.txt atau bisa menggunakan pip3
+4. Kalau sudah terinstall, jalankan perintah python run.py di root project atau python3 run.py
