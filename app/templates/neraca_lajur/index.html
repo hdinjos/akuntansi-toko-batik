@@ -38,7 +38,7 @@
       <form
         id="formDelete"
         method="POST"
-        action="{{url_for('delete')}}"
+        action="{{url_for('delete_lajur')}}"
         class="modal-footer"
       >
         <input hidden id="idDelete" name="id" />
@@ -79,44 +79,25 @@
           </tbody>
           <tbody>
             {% for a in daftar_akuns %}
-            
             <tr>
               <td colspan="2">{{a.daftar_akun_name}}</td>
               <td>{{a.debit| int}}</td>
               <td>{{a.credit|int}}</td>
-              <td> {% if a.jenis == 'lb' %} {{a.debit| int}} {% endif %}</td>
-              <td>{{a.credit|int}}</td>
-              <td>{{a.debit| int}}</td>
-              <td>{{a.credit|int}}</td>
-              <td>Hapus</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        <!-- <table id="example2" class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>Kode</th>
-              <th>Nama</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for data in daftar_akuns %}
-            <tr>
-              <td>{{data.code}}</td>
-              <td>{{data.name}}</td>
+              <td> {% if a.jenis == 'lb' %} {{a.debit| int}} {% else %} 0 {% endif %}</td>
+              <td>{% if a.jenis == 'lb' %} {{a.credit| int}} {% else %} 0 {% endif %}</td>
+              <td>{% if a.jenis == 'nrc' %} {{a.debit| int}} {% else %} 0 {% endif %}</td>
+              <td>{% if a.jenis == 'nrc' %} {{a.credit| int}} {% else %} 0 {% endif %}</td>
               <td>
                 <div class="d-flex justify-content-start">
                   <a
-                    href="/daftar-akun/edit/{{data.id}}"
+                    href="/neraca-lajur/edit/{{a.id}}"
                     class="btn btn-primary mr-3"
                     >Edit</a
                   >
                   <a
                     id="btnDelete"
                     href="#"
-                    data-id="{{data.id}}"
+                    data-id="{{a.id}}"
                     data-toggle="modal"
                     data-target="#staticBackdrop"
                     class="btn btn-danger"
@@ -127,7 +108,8 @@
             </tr>
             {% endfor %}
           </tbody>
-        </table> -->
+        </table>
+       
       </div>
       <!-- /.card-body -->
     </div>

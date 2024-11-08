@@ -32,13 +32,21 @@ def create_lajur():
 @server.route("/neraca-lajur/edit/<id>", methods=['POST', 'GET'])
 def edit_lajur(id):
     if  request.method == 'GET':
-        data = DaftarAkun.query.get(int(id))
-        return render_template("neraca_lajur/edit.html", title="Daftar Akun", data=data)
+        data = NeracaLajur.query.get(int(id))
+        daftar_akuns = DaftarAkun.query.all()
+        return render_template("neraca_lajur/edit.html", title="Daftar Akun", data=data, daftar_akuns=daftar_akuns)
     if request.method == 'POST':
-        code = request.form['code']
-        name = request.form['name']
+        daftar_akun_id = request.form['daftar_akun_id']
+        jenis = request.form['jenis']
+        debit = request.form['debit']
+        credit = request.form['credit']
         
-        db.session.query(DaftarAkun).filter(DaftarAkun.id == int(id)).update({"code": code, "name": name})
+        db.session.query(NeracaLajur).filter(NeracaLajur.id == int(id)).update({
+            'daftar_akun_id': daftar_akun_id,
+            'jenis' : jenis,
+            'debit': debit,
+            'credit': credit
+        })
         db.session.commit()
         return redirect(url_for('index_lajur'))
     
@@ -47,7 +55,7 @@ def delete_lajur():
     if  request.method == 'POST':
         id = request.form['id']
         if (id):
-            DaftarAkun.query.filter_by(id=int(id)).delete()
+            NeracaLajur.query.filter_by(id=int(id)).delete()
             db.session.commit()
             return redirect(url_for('index_lajur'))
 
