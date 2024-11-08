@@ -32,10 +32,7 @@ def create_lajur():
             credit = abs(total)
         else:
             debit = total
-            
-        
-        # for j in findJurnal:
-            # print(j)
+
         
         
         request_data = NeracaLajur( daftar_akun_id = daftar_akun_id, debit=debit, credit=credit)
