@@ -12,9 +12,10 @@ import string
 @server.route("/neraca-lajur")
 def index_lajur():
     # daftar_akuns = NeracaLajur.query.order_by(NeracaLajur.id.desc())
-    
+    total_debit = db.session.query(func.sum(NeracaLajur.debit).label("total_debit")).scalar()
+    total_credit = db.session.query(func.sum(NeracaLajur.credit).label("total_credit")).scalar()
     daftar_akuns = db.session.query( NeracaLajur.id, NeracaLajur.jenis,NeracaLajur.debit,NeracaLajur.credit, DaftarAkun.name.label('daftar_akun_name')).filter(NeracaLajur.daftar_akun_id == DaftarAkun.id).all()
-    return render_template("neraca_lajur/index.html", title="Daftar Akun", daftar_akuns=daftar_akuns)
+    return render_template("neraca_lajur/index.html", title="Daftar Akun", daftar_akuns=daftar_akuns, total_credit=total_credit, total_debit=total_debit)
 
 @server.route("/neraca-lajur/create", methods=['POST', 'GET'])
 def create_lajur():
