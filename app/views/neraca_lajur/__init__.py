@@ -41,7 +41,42 @@ def create_lajur():
         db.session.commit()
         return redirect(url_for('index_lajur'))
     daftar_akuns = DaftarAkun.query.all()
-    return render_template("neraca_lajur/add.html", title="Daftar Akun", daftar_akuns=daftar_akuns)
+    jurnal_umum = JurnalUmum.query.all()
+    neraca_lajur = NeracaLajur.query.all()
+    jus = []
+    seen_ids = set()
+    
+    for ju in jurnal_umum:
+        if ju.daftar_akun_id not in seen_ids:
+            jus.append(ju.daftar_akun_id)
+            seen_ids.add(ju.daftar_akun_id)
+            
+    das = []
+    
+    for da in daftar_akuns:
+        if (da.id in jus):
+            das.append(da)
+            # print("$$$$$$$$$$$$")
+            # print(da.id)
+            # print("$$$$$$$$$$$$")
+    # print(jus)
+    nl_id = []
+    for n in neraca_lajur:
+        nl_id.append(n.daftar_akun_id)
+    
+    print("$$$$$$$$$$$$")
+    print(nl_id)
+    print("$$$$$$$$$$$$")
+    
+    
+    # for d in das:
+    #     for n in neraca_lajur:
+    #         if(d.id != n.daftar_akun_id):
+    #             new_das.append(d)
+    #             # print("$$$$$$$$$$$$")
+    #             # print(d)
+    #             # print("$$$$$$$$$$$$")
+    return render_template("neraca_lajur/add.html", title="Daftar Akun", daftar_akuns=das, nl_id=nl_id)
 
 @server.route("/neraca-lajur/edit/<id>", methods=['POST', 'GET'])
 def edit_lajur(id):

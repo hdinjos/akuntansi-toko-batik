@@ -32,7 +32,7 @@
           <select required name="daftar_akun_id" class="form-control">
             {% for data in daftar_akuns %}
 
-            <option value="{{data.id}}">{{data.name}}</option>
+            <option {% if data.id in nl_id %} disabled {% endif %} value="{{data.id}}">{{data.name}}</option>
             {% endfor %}
             
 

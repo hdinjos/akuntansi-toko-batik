@@ -89,20 +89,20 @@ def delete_jurnal():
         id = request.form['id']
         if (id):
             find_id_daftar_akun = db.session.query(JurnalUmum.daftar_akun_id).filter_by(id=int(id)).scalar()
-            print("PPPPP££££££")
-            print(find_id_daftar_akun)
+            # print("PPPPP££££££")
+            # print(find_id_daftar_akun)
             
             JurnalUmum.query.filter_by(id=int(id)).delete()
             db.session.commit()
             
             total = db.session.query(func.sum(JurnalUmum.deviation).label("total")).filter(JurnalUmum.daftar_akun_id == int(find_id_daftar_akun)).scalar()
-            print("PPPPP&&&&&^^&*&(*)")
-            print(total)
+            # print("PPPPP&&&&&^^&*&(*)")
+            # print(total)
             d =0
             c=0
-            if total < 0:
+            if total is not None and total < 0:
                 c = abs(total)
-            else:
+            elif total is not None and total > 0:
                 d = total
             
             db.session.query(NeracaLajur).filter(NeracaLajur.daftar_akun_id == int(find_id_daftar_akun)).update({
@@ -110,6 +110,11 @@ def delete_jurnal():
                 'credit': c
             })
             db.session.commit()
+            
+            count_neraca_lajur = db.session.query(JurnalUmum).filter(JurnalUmum.daftar_akun_id == int(find_id_daftar_akun)).count()
+            if (count_neraca_lajur == 0):
+                db.session.query(NeracaLajur).filter(NeracaLajur.daftar_akun_id == int(find_id_daftar_akun)).delete()
+                db.session.commit()
             return redirect(url_for('index_jurnal'))
 
 
